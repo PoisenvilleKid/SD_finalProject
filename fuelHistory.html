@@ -1,0 +1,103 @@
+<?php
+
+        session_start();
+    
+        // Set Up The DB Variables
+        $user = 'root';
+        $pass = '';
+        $db = 'test1';
+
+        // Connect To DB
+        $con = mysqli_connect('localhost',$user, $pass, $db);
+
+        $UserName = $_SESSION['username'];
+        if($con-> connect_error){
+            die("Connection failed:". $con-> connect_error);
+        }
+        $sql = "SELECT * FROM history WHERE username = '$UserName'";
+        $result = $con -> query($sql) or die($con->error);
+
+        while($row = $result->fetch_assoc()){
+            echo "<tr><td>".$row["gallons"]."</td><td>".$row["address"]."</td><td>".$row["date"]."</td><td>".$row["price"]."</td><td>".$row["total"]."</td></tr>";            
+        }
+        echo"</table>";
+        $con -> close();
+
+  ?>
+
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Fuel History</title>
+<link rel="stylesheet" href="clientProfMan.CSS" />
+</head>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+<body>
+
+<h1 align="left" style ="color:green">Fuel Quote Table:</h1>
+
+<form>
+
+<table style="width:100%" id = "customers">
+    <tr>
+        <th>Gallons Requested:</th>
+        <th>Delivery Address:</th>
+        <th>Delivery Date:</th>
+        <th>Suggested Price:</th>
+        <th>Total Amount Due:</th>
+    </tr>
+    <tr>
+    </tr>
+</table>
+<br>
+<br>
+<form action = "fuelQuote.php">
+<button type="submit" class="registerbtn">Click here to return to fuel quote form</button>
+</form>
+
+<form action = "Login.php">
+<button type="submit" class="registerbtn">Click here to return to login page</button>
+</form>
+
+
+<hr />
+
+
+
+
+</form>
+
+</body>
+
+
+</html>
