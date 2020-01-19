@@ -6,6 +6,11 @@ const app = express();
 // middleware
 app.use(bodyParser.json());
 
+// Dummy Route To return something on LocalHost:9000
+app.get("/",function(req,res){    
+    res.send("home");
+});
+
 // Respond with error message on error
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
