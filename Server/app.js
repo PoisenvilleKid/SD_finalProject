@@ -1,0 +1,25 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+
+// middleware
+app.use(bodyParser.json());
+
+// Respond with error message on error
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message : err.message,
+        error : {}
+    });
+});
+
+// Set Port Number and run server with yarn run start nodemon will
+let port = 9000;
+app.listen(port, function () {
+ console.log(`Server is up and running on port ${port}`);
+});
+
+
+module.exports = app;
