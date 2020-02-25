@@ -8,6 +8,13 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+// Db Connection
+mongoose.connect('mongodb://localhost:27017/', {useNewUrlParser: true, useUnifiedTopology: true})
+        .catch(err => console.log(err.message));
+
+const db = mongoose.connection;
+db.once('open', () => console.log('connected to the database'));
+
 // Routes
 
 // middleware
